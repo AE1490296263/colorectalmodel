@@ -1,0 +1,33 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.container {
+    max-width: 1200px;
+}
+
+.card {
+    border-radius: 15px;
+}
+
+.btn-primary {
+    background-color: #0d6efd;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+}
+
+.results-section {
+    background-color: white;
+    border-radius: 15px;
+}
+
+h1 {
+    color: #2c3e50;
+    font-weight: 700;
+}
+
+.form-label {
+    font-weight: 500;
+    color: #495057;
+}

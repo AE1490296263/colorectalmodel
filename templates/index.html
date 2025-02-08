@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colorectal Prediction Model</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Colorectal Prediction Model</h1>
+        <p class="text-center text-muted">Due to technical reasons, only predictions for colorectal polyps are temporarily supported. Please select "colorectal polyp" before predicting. We apologize for any inconvenience caused and thank you for your understanding.</p>
+        <form method="POST" class="card p-4 shadow">
+            <div class="row g-3">
+                {% for feature in ['CEA', 'ALB', 'CIKP', 'Cyfra211', 'Ca', 'HGB'] %}
+                <div class="col-md-4">
+                    <label class="form-label">{{ feature }}</label>
+                    <input type="number" step="any" class="form-control" name="{{ feature }}" required>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <div class="mt-4">
+                <label class="form-label">Prediction Type:</label>
+                <select class="form-select" name="prediction_type">
+                    <option value="cancer">Colorectal Cancer</option>
+                    <option value="polyp">Colorectal Polyp</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="btn btn-primary mt-4">Predict</button>
+        </form>
+
+        {% if show_results %}
+        <div class="results-section mt-5 p-4 shadow">
+            <h3>Prediction Results:</h3>
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <div class="card bg-light p-3">
+                        <h5>Colorectal Cancer Probability: {{ cancer_prob }}</h5>
+                        <h5>Colorectal Polyp Probability: {{ polyp_prob }}</h5>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card p-3">
+                        <h5 class="mb-3">SHAP Explanation</h5>
+                        <img src="{{ url_for('static', filename='shap_plot.png') }}" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
